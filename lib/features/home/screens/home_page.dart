@@ -1,4 +1,5 @@
 import 'package:abdullah_portfolio/core/theme/app_gradients.dart';
+import 'package:abdullah_portfolio/core/theme/colors.dart';
 import 'package:abdullah_portfolio/features/hero/screens/hero_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/contact_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/mobile_drawer.dart';
@@ -19,15 +20,50 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey _heroKey = GlobalKey();
+  final GlobalKey _skillsKey = GlobalKey();
+  final GlobalKey _whatIDoKey = GlobalKey();
+  final GlobalKey _processKey = GlobalKey();
+  final GlobalKey _portfolioKey = GlobalKey();
+  final GlobalKey _contactKey = GlobalKey();
+
+  void _scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOutCubic,
+      );
+    }
+  }
+
+  void _onSectionSelected(String name) {
+    if (name == 'Home' || name == 'About') {
+      _scrollToSection(_heroKey);
+    } else if (name == 'Skills') {
+      _scrollToSection(_skillsKey);
+    } else if (name == 'Services') {
+      _scrollToSection(_whatIDoKey);
+    } else if (name == 'Experience / Process') {
+      _scrollToSection(_processKey);
+    } else if (name == 'Featured Projects') {
+      _scrollToSection(_portfolioKey);
+    } else if (name == 'Contact') {
+      _scrollToSection(_contactKey);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(onSectionSelected: _onSectionSelected),
       body: Container(
         decoration: const BoxDecoration(
           gradient: AppGradients.hero,
         ),
         child: CustomScrollView(
+          cacheExtent: 9999.0, // ensures all sliver GlobalKeys contexts remain valid in tree
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading: false,
@@ -37,33 +73,34 @@ class _HomePageState extends State<HomePage> {
               scrolledUnderElevation: 0,
               titleSpacing: 0,
               toolbarHeight: 80.h,
-              title: const ResponsiveNavBar(),
+              title: ResponsiveNavBar(onSectionSelected: _onSectionSelected),
             ),
-            const SliverToBoxAdapter(
-              child: HeroSection(),
+            SliverToBoxAdapter(
+              child: HeroSection(key: _heroKey),
             ),
-            const SliverToBoxAdapter(
-              child: SkillsSection(),
+            SliverToBoxAdapter(
+              child: SkillsSection(key: _skillsKey),
             ),
-            const SliverToBoxAdapter(
-              child: WhatIDoSection(),
+            SliverToBoxAdapter(
+              child: WhatIDoSection(key: _whatIDoKey),
             ),
             SliverToBoxAdapter(
               child: Container(
+                key: _processKey,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 242, 243, 244),
+                  color: AppColors.background,
                 ),
                 child: const ProcessSection(),
               ),
             ),
-            const SliverToBoxAdapter(
-              child: PortfolioSection(),
+            SliverToBoxAdapter(
+              child: PortfolioSection(key: _portfolioKey),
             ),
             const SliverToBoxAdapter(
               child: ProjectCtaSection(),
             ),
-            const SliverToBoxAdapter(
-              child: ContactSection(),
+            SliverToBoxAdapter(
+              child: ContactSection(key: _contactKey),
             ),
           ],
         ),

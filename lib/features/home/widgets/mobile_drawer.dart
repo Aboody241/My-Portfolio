@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MobileDrawer extends StatelessWidget {
-  const MobileDrawer({super.key});
+  const MobileDrawer({super.key, required this.onSectionSelected});
+
+  final ValueChanged<String> onSectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +35,36 @@ class MobileDrawer extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 40.h),
-              _DrawerItem(title: 'Home', onPressed: () {}),
-              _DrawerItem(title: 'About', onPressed: () {}),
-              _DrawerItem(title: 'Skills', onPressed: () {}),
-              _DrawerItem(title: 'Featured Projects', onPressed: () {}),
-              _DrawerItem(title: 'Services', onPressed: () {}),
-              _DrawerItem(title: 'Experience / Process', onPressed: () {}),
+              _DrawerItem(
+                title: 'Home',
+                onPressed: () => onSectionSelected('Home'),
+              ),
+              _DrawerItem(
+                title: 'About',
+                onPressed: () => onSectionSelected('About'),
+              ),
+              _DrawerItem(
+                title: 'Skills',
+                onPressed: () => onSectionSelected('Skills'),
+              ),
+              _DrawerItem(
+                title: 'Featured Projects',
+                onPressed: () => onSectionSelected('Featured Projects'),
+              ),
+              _DrawerItem(
+                title: 'Services',
+                onPressed: () => onSectionSelected('Services'),
+              ),
+              _DrawerItem(
+                title: 'Experience / Process',
+                onPressed: () => onSectionSelected('Experience / Process'),
+              ),
               const Spacer(),
               SizedBox(
                 width: double.infinity,
-                child: ContactButton(onPressed: () {}),
+                child: ContactButton(
+                  onPressed: () => onSectionSelected('Contact'),
+                ),
               ),
             ],
           ),
@@ -64,7 +86,7 @@ class _DrawerItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.h),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(); // Dismiss drawer
           onPressed();
         },
         child: Container(

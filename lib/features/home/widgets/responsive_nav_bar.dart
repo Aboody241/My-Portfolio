@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResponsiveNavBar extends StatelessWidget {
-  const ResponsiveNavBar({super.key});
+  const ResponsiveNavBar({super.key, required this.onSectionSelected});
+
+  final ValueChanged<String> onSectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +17,17 @@ class ResponsiveNavBar extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40.w),
-      child: isDesktop ? const _DesktopNavBar() : const _MobileNavBar(),
+      child: isDesktop
+          ? _DesktopNavBar(onSectionSelected: onSectionSelected)
+          : const _MobileNavBar(),
     );
   }
 }
 
 class _DesktopNavBar extends StatelessWidget {
-  const _DesktopNavBar();
+  const _DesktopNavBar({required this.onSectionSelected});
+
+  final ValueChanged<String> onSectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +37,40 @@ class _DesktopNavBar extends StatelessWidget {
         const Logo(),
         Row(
           children: [
-            _NavAction(title: 'Home', onPressed: () {}, isActive: true),
+            _NavAction(
+              title: 'Home',
+              onPressed: () => onSectionSelected('Home'),
+              isActive: true,
+            ),
             SizedBox(width: 32.w),
-            _NavAction(title: 'About', onPressed: () {}),
+            _NavAction(
+              title: 'About',
+              onPressed: () => onSectionSelected('About'),
+            ),
             SizedBox(width: 32.w),
-            _NavAction(title: 'Skills', onPressed: () {}),
+            _NavAction(
+              title: 'Skills',
+              onPressed: () => onSectionSelected('Skills'),
+            ),
             SizedBox(width: 32.w),
-            _NavAction(title: 'Featured Projects', onPressed: () {}),
+            _NavAction(
+              title: 'Services',
+              onPressed: () => onSectionSelected('Services'),
+            ),
+              SizedBox(width: 32.w),
+            _NavAction(
+              title: 'Experience / Process',
+              onPressed: () => onSectionSelected('Experience / Process'),
+            ),
             SizedBox(width: 32.w),
-            _NavAction(title: 'Services', onPressed: () {}),
+            _NavAction(
+              title: 'Featured Projects',
+              onPressed: () => onSectionSelected('Featured Projects'),
+            ),
+            
+          
             SizedBox(width: 32.w),
-            _NavAction(title: 'Experience / Process', onPressed: () {}),
-            SizedBox(width: 32.w),
-            ContactButton(onPressed: () {}),
+            ContactButton(onPressed: () => onSectionSelected('Contact')),
           ],
         ),
       ],
@@ -100,11 +127,12 @@ class _NavActionState extends State<_NavAction> {
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 150),
           style: AppTextStyles.body.copyWith(
-            color: widget.isActive || _isHovered
-                ? AppColors.primary
-                : AppColors.textSecondary,
-            fontSize: 16.sp,
+                fontSize: 16.sp,
             fontWeight: FontWeight.w600,
+            color: widget.isActive
+                ? AppColors.primary
+                : (_isHovered ? AppColors.primary : AppColors.textPrimary),
+        
           ),
           child: Text(widget.title),
         ),
