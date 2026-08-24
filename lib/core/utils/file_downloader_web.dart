@@ -9,3 +9,7 @@ void downloadFile(String url, [String? filename]) {
   anchor.click();
   anchor.remove();
 }
+
+void openUrl(String url) {
+  html.window.open(url, '_blank');
+}

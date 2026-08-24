@@ -1,5 +1,6 @@
 import 'package:abdullah_portfolio/core/theme/app_text_styles.dart';
 import 'package:abdullah_portfolio/core/theme/colors.dart';
+import 'package:abdullah_portfolio/core/utils/file_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -395,22 +396,135 @@ class _SocialTray extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const _SocialIconButton(
-          icon: Icons.code_rounded,
-          label: 'GitHub',
+        _GitHubButton(
           isFilled: true,
+          onTap: () => openUrl('https://github.com/Aboody241'),
         ),
         SizedBox(width: 14.w),
-        const _LinkedInButton(isFilled: false),
+        _LinkedInButton(
+          isFilled: false,
+          onTap: () => openUrl('https://www.linkedin.com/in/abdullah-essam-8a145b318?utm_source=share_via&utm_content=profile&utm_medium=member_ios'),
+        ),
         SizedBox(width: 14.w),
-        const _SocialIconButton(
+        _SocialIconButton(
           icon: Icons.email_outlined,
           label: 'Email',
           isFilled: false,
+          onTap: () => openUrl('mailto:ounabdallah216@gmail.com'),
         ),
       ],
     );
   }
+}
+
+class _GitHubButton extends StatefulWidget {
+  const _GitHubButton({this.isFilled = true, this.onTap});
+
+  final bool isFilled;
+  final VoidCallback? onTap;
+
+  @override
+  State<_GitHubButton> createState() => _GitHubButtonState();
+}
+
+class _GitHubButtonState extends State<_GitHubButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Tooltip(
+          message: 'GitHub',
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            width: 36.r,
+            height: 36.r,
+            decoration: BoxDecoration(
+              color: (widget.isFilled || _isHovered)
+                  ? AppColors.primary
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(
+                color: (widget.isFilled || _isHovered)
+                    ? Colors.transparent
+                    : AppColors.border,
+                width: 1,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: CustomPaint(
+              size: Size(18.r, 18.r),
+              painter: _GitHubLogoPainter(
+                color: (widget.isFilled || _isHovered)
+                    ? Colors.white
+                    : AppColors.primary,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GitHubLogoPainter extends CustomPainter {
+  final Color color;
+
+  const _GitHubLogoPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+
+    final scale = size.width / 24.0;
+    canvas.save();
+    canvas.scale(scale, scale);
+
+    final path = Path();
+    path.moveTo(12, 0);
+    path.cubicTo(5.37, 0, 0, 5.37, 0, 12);
+    path.cubicTo(0, 17.31, 3.435, 21.795, 8.205, 23.385);
+    path.cubicTo(8.805, 23.49, 9.03, 23.13, 9.03, 22.815);
+    path.cubicTo(9.03, 22.53, 9.015, 21.585, 9.015, 20.58);
+    path.cubicTo(6, 21.135, 5.22, 19.845, 4.98, 19.17);
+    path.cubicTo(4.845, 18.825, 4.26, 17.76, 3.75, 17.475);
+    path.cubicTo(3.33, 17.25, 2.73, 16.695, 3.735, 16.68);
+    path.cubicTo(4.68, 16.665, 5.355, 17.55, 5.58, 17.91);
+    path.cubicTo(6.66, 19.725, 8.385, 19.215, 9.075, 18.9);
+    path.cubicTo(9.18, 18.12, 9.495, 17.595, 9.84, 17.295);
+    path.cubicTo(7.17, 16.995, 4.38, 15.96, 4.38, 11.37);
+    path.cubicTo(4.38, 10.065, 4.845, 8.985, 5.61, 8.145);
+    path.cubicTo(5.49, 7.845, 5.07, 6.615, 5.73, 4.965);
+    path.cubicTo(5.73, 4.965, 6.735, 4.65, 9.03, 6.195);
+    path.cubicTo(9.99, 5.925, 11.01, 5.79, 12.03, 5.79);
+    path.cubicTo(13.05, 5.79, 14.07, 5.925, 15.03, 6.195);
+    path.cubicTo(17.325, 4.635, 18.33, 4.965, 18.33, 4.965);
+    path.cubicTo(18.99, 6.615, 18.57, 7.845, 18.45, 8.145);
+    path.cubicTo(19.215, 8.985, 19.68, 10.05, 19.68, 11.37);
+    path.cubicTo(19.68, 15.975, 16.875, 16.995, 14.205, 17.295);
+    path.cubicTo(14.64, 17.67, 15.015, 18.39, 15.015, 19.515);
+    path.cubicTo(15.015, 21.12, 15, 22.41, 15, 22.815);
+    path.cubicTo(15, 23.13, 15.225, 23.505, 15.825, 23.385);
+    path.cubicTo(20.595, 21.795, 24.03, 17.31, 24.03, 12);
+    path.cubicTo(24.03, 5.37, 18.66, 0, 12, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant _GitHubLogoPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _SocialIconButton extends StatefulWidget {
@@ -418,11 +532,13 @@ class _SocialIconButton extends StatefulWidget {
     required this.icon,
     required this.label,
     this.isFilled = false,
+    this.onTap,
   });
 
   final IconData icon;
   final String label;
   final bool isFilled;
+  final VoidCallback? onTap;
 
   @override
   State<_SocialIconButton> createState() => _SocialIconButtonState();
@@ -437,32 +553,35 @@ class _SocialIconButtonState extends State<_SocialIconButton> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
-      child: Tooltip(
-        message: widget.label,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOutCubic,
-          width: 36.r,
-          height: 36.r,
-          decoration: BoxDecoration(
-            color: (widget.isFilled || _isHovered)
-                ? AppColors.primary
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(8.r),
-            border: Border.all(
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Tooltip(
+          message: widget.label,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            width: 36.r,
+            height: 36.r,
+            decoration: BoxDecoration(
               color: (widget.isFilled || _isHovered)
-                  ? Colors.transparent
-                  : AppColors.border,
-              width: 1,
+                  ? AppColors.primary
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(
+                color: (widget.isFilled || _isHovered)
+                    ? Colors.transparent
+                    : AppColors.border,
+                width: 1,
+              ),
             ),
-          ),
-          alignment: Alignment.center,
-          child: Icon(
-            widget.icon,
-            color: (widget.isFilled || _isHovered)
-                ? Colors.white
-                : AppColors.primary,
-            size: 18.r,
+            alignment: Alignment.center,
+            child: Icon(
+              widget.icon,
+              color: (widget.isFilled || _isHovered)
+                  ? Colors.white
+                  : AppColors.primary,
+              size: 18.r,
+            ),
           ),
         ),
       ),
@@ -471,9 +590,10 @@ class _SocialIconButtonState extends State<_SocialIconButton> {
 }
 
 class _LinkedInButton extends StatefulWidget {
-  const _LinkedInButton({this.isFilled = false});
+  const _LinkedInButton({this.isFilled = false, this.onTap});
 
   final bool isFilled;
+  final VoidCallback? onTap;
 
   @override
   State<_LinkedInButton> createState() => _LinkedInButtonState();
@@ -488,34 +608,37 @@ class _LinkedInButtonState extends State<_LinkedInButton> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
-      child: Tooltip(
-        message: 'LinkedIn',
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOutCubic,
-          width: 36.r,
-          height: 36.r,
-          decoration: BoxDecoration(
-            color: (widget.isFilled || _isHovered)
-                ? AppColors.primary
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(8.r),
-            border: Border.all(
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Tooltip(
+          message: 'LinkedIn',
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            width: 36.r,
+            height: 36.r,
+            decoration: BoxDecoration(
               color: (widget.isFilled || _isHovered)
-                  ? Colors.transparent
-                  : AppColors.border,
-              width: 1,
+                  ? AppColors.primary
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(
+                color: (widget.isFilled || _isHovered)
+                    ? Colors.transparent
+                    : AppColors.border,
+                width: 1,
+              ),
             ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            'in',
-            style: TextStyle(
-              color: (widget.isFilled || _isHovered)
-                  ? Colors.white
-                  : AppColors.primary,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
+            alignment: Alignment.center,
+            child: Text(
+              'in',
+              style: TextStyle(
+                color: (widget.isFilled || _isHovered)
+                    ? Colors.white
+                    : AppColors.primary,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

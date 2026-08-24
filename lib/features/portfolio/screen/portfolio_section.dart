@@ -29,11 +29,11 @@ class PortfolioSection extends StatelessWidget {
     final projects = [
       const _ProjectData(
         tag: 'FLUTTER • MOBILE APP',
-        title: 'E-Commerce Mobile Application',
+        title: 'Delivery Mobile Application',
         description:
-            'A high-performance cross-platform shopping application built with Flutter, BLoC state management, and Stripe payments.',
+            'A modern cross-platform delivery app built with Flutter, featuring restaurant discovery, product browsing, cart management.',
         imageUrl:
-            'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&auto=format&fit=crop',
+            'assets/images/projects/Gemini_Generated_Image_bc6nkjbc6nkjbc6n.jpeg',
       ),
       const _ProjectData(
         tag: 'FLUTTER • FINANCE',
@@ -51,30 +51,7 @@ class PortfolioSection extends StatelessWidget {
         imageUrl:
             'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop',
       ),
-      const _ProjectData(
-        tag: 'FLUTTER • PRODUCTIVITY',
-        title: 'Task & Team Workflow App',
-        description:
-            'Collaborative mobile productivity application with offline-first support, local caching, and push notifications.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&auto=format&fit=crop',
-      ),
-      const _ProjectData(
-        tag: 'FLUTTER • FOOD & DELIVERY',
-        title: 'Food Ordering & Delivery App',
-        description:
-            'Real-time order tracking mobile application with Google Maps integration, live driver updates, and seamless checkout.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&auto=format&fit=crop',
-      ),
-      const _ProjectData(
-        tag: 'FLUTTER • SOCIAL & REAL-TIME',
-        title: 'Real-Time Chat & Community App',
-        description:
-            'Cross-platform messaging application powered by Firebase & WebSockets with end-to-end media sharing and voice notes.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop',
-      ),
+     
     ];
 
     return Container(
@@ -140,19 +117,19 @@ class PortfolioSection extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 28.h),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(child: _ProjectCard(data: projects[3])),
-                SizedBox(width: 28.w),
-                Expanded(child: _ProjectCard(data: projects[4])),
-                SizedBox(width: 28.w),
-                Expanded(child: _ProjectCard(data: projects[5])),
-              ],
-            ),
-          ),
+          // SizedBox(height: 28.h),
+          // IntrinsicHeight(
+          //   child: Row(
+          //     crossAxisAlignment: CrossAxisAlignment.stretch,
+          //     children: [
+          //       Expanded(child: _ProjectCard(data: projects[3])),
+          //       SizedBox(width: 28.w),
+          //       Expanded(child: _ProjectCard(data: projects[4])),
+          //       SizedBox(width: 28.w),
+          //       Expanded(child: _ProjectCard(data: projects[5])),
+          //     ],
+          //   ),
+          // ),
         ],
       );
     } else if (isTablet) {
@@ -250,34 +227,51 @@ class _ProjectCardState extends State<_ProjectCard> {
               // Image Header with Aspect Ratio
               AspectRatio(
                 aspectRatio: 16 / 10,
-                child: Image.network(
-                  widget.data.imageUrl,
-                  fit: BoxFit.cover,
-                  cacheWidth: 600,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      color: AppColors.surface,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: AppColors.primary,
-                        ),
+                child: widget.data.imageUrl.startsWith('http')
+                    ? Image.network(
+                        widget.data.imageUrl,
+                        fit: BoxFit.cover,
+                        cacheWidth: 600,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            color: AppColors.surface,
+                            child: const Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.surface,
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.phone_android_rounded,
+                              size: 44.r,
+                              color: AppColors.textLight,
+                            ),
+                          );
+                        },
+                      )
+                    : Image.asset(
+                        widget.data.imageUrl,
+                        fit: BoxFit.cover,
+                        cacheWidth: 600,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.surface,
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.phone_android_rounded,
+                              size: 44.r,
+                              color: AppColors.textLight,
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: AppColors.surface,
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.phone_android_rounded,
-                        size: 44.r,
-                        color: AppColors.textLight,
-                      ),
-                    );
-                  },
-                ),
               ),
 
               // Content Details

@@ -397,45 +397,45 @@ class _LetsTalkButtonState extends State<_LetsTalkButton> {
               : Matrix4.identity(),
           transformAlignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
-            decoration: BoxDecoration(
-              color: _isHovered ? AppColors.primaryDark : AppColors.primary,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
-                  blurRadius: _isHovered ? 16.r : 10.r,
-                  offset: Offset(0, _isHovered ? 6.h : 3.h),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.primaryDark : AppColors.primary,
+            borderRadius: BorderRadius.circular(8.r),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
+                blurRadius: _isHovered ? 16.r : 10.r,
+                offset: Offset(0, _isHovered ? 6.h : 3.h),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Let's Talk",
+                style: AppTextStyles.button.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: Colors.white,
+                  letterSpacing: 0.2,
                 ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Let's Talk",
-                  style: AppTextStyles.button.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                  ),
+              ),
+              SizedBox(width: 8.w),
+              AnimatedSlide(
+                offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOutCubic,
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 18.r,
                 ),
-                SizedBox(width: 8.w),
-                AnimatedSlide(
-                  offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOutCubic,
-                  child: Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white,
-                    size: 18.r,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      
+      ),
     );
   }
 }
+

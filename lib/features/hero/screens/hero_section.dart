@@ -441,9 +441,10 @@ class _HeroAvatarState extends State<_HeroAvatar> {
               AnimatedScale(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeOutCubic,
-                scale: _isHovered ? 1.02 : 1.0,
+                scale: _isHovered ? 1.23 : 1.20,
+                alignment: Alignment.bottomCenter,
                 child: Image.asset(
-                  'assets/images/image2.jpg',
+                  'assets/images/WhatsApp Image 2026-08-05 at 23.06.41 (1).png',
                   width: cardSize,
                   height: cardSize,
                   fit: BoxFit.cover,

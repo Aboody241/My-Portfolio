@@ -44,8 +44,6 @@ class _HomePageState extends State<HomePage> {
       _scrollToSection(_skillsKey);
     } else if (name == 'What I Do' || name == 'Services') {
       _scrollToSection(_whatIDoKey);
-    } else if (name == 'How I Work' || name == 'Experience / Process') {
-      _scrollToSection(_processKey);
     } else if (name == 'Projects' || name == 'Featured Projects' || name == 'Portfolio') {
       _scrollToSection(_portfolioKey);
     } else if (name == 'Contact') {
