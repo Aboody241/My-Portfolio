@@ -1,4 +1,5 @@
 import 'package:abdullah_portfolio/core/theme/app_gradients.dart';
+import 'package:abdullah_portfolio/core/utils/file_downloader.dart';
 import 'package:abdullah_portfolio/features/hero/screens/hero_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/contact_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/mobile_drawer.dart';
@@ -77,6 +78,9 @@ class _HomePageState extends State<HomePage> {
               child: HeroSection(
                 key: _heroKey,
                 onViewProjectsTap: () => _scrollToSection(_portfolioKey),
+                onDownloadCvTap: () {
+                  downloadFile('Abdullah_Essam_CV.pdf', 'Abdullah_Essam_CV.pdf');
+                },
               ),
             ),
             SliverToBoxAdapter(
@@ -100,8 +104,10 @@ class _HomePageState extends State<HomePage> {
             SliverToBoxAdapter(
               child: PortfolioSection(key: _portfolioKey),
             ),
-            const SliverToBoxAdapter(
-              child: ProjectCtaSection(),
+            SliverToBoxAdapter(
+              child: ProjectCtaSection(
+                onConnectTap: () => _scrollToSection(_contactKey),
+              ),
             ),
             SliverToBoxAdapter(
               child: ContactSection(key: _contactKey),

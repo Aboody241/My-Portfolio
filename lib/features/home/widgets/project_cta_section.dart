@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProjectCtaSection extends StatelessWidget {
-  const ProjectCtaSection({super.key});
+  const ProjectCtaSection({super.key, this.onConnectTap});
+
+  final VoidCallback? onConnectTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class ProjectCtaSection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 32.h),
-          const _LetsConnectButton(),
+          _LetsConnectButton(onTap: onConnectTap),
         ],
       ),
     );
@@ -54,7 +56,9 @@ class ProjectCtaSection extends StatelessWidget {
 }
 
 class _LetsConnectButton extends StatefulWidget {
-  const _LetsConnectButton();
+  const _LetsConnectButton({this.onTap});
+
+  final VoidCallback? onTap;
 
   @override
   State<_LetsConnectButton> createState() => _LetsConnectButtonState();
@@ -70,10 +74,7 @@ class _LetsConnectButtonState extends State<_LetsConnectButton> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
-          // Scroll to the contact section
-          // This works by finding the ContactSection key in the parent
-        },
+        onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
