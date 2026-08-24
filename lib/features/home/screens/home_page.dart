@@ -82,7 +82,10 @@ class _HomePageState extends State<HomePage> {
               child: SkillsSection(key: _skillsKey),
             ),
             SliverToBoxAdapter(
-              child: WhatIDoSection(key: _whatIDoKey),
+              child: WhatIDoSection(
+                key: _whatIDoKey,
+                onContactTap: () => _scrollToSection(_contactKey),
+              ),
             ),
             SliverToBoxAdapter(
               child: Container(
