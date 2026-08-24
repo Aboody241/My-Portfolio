@@ -376,6 +376,8 @@ class _SkillCardState extends State<_SkillCard> {
                       width: 24.r,
                       height: 24.r,
                       fit: BoxFit.contain,
+                      cacheWidth: 48,
+                      cacheHeight: 48,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(
                           widget.skill.fallbackIcon,

@@ -389,14 +389,14 @@ class _LetsTalkButtonState extends State<_LetsTalkButton> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedScale(
-          scale: _isHovered ? 1.03 : 1.0,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOutCubic,
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
+          transform: _isHovered
+              ? (Matrix4.identity()..scale(1.03, 1.03))
+              : Matrix4.identity(),
+          transformAlignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
             decoration: BoxDecoration(
               color: _isHovered ? AppColors.primaryDark : AppColors.primary,
               borderRadius: BorderRadius.circular(8.r),
@@ -435,7 +435,7 @@ class _LetsTalkButtonState extends State<_LetsTalkButton> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

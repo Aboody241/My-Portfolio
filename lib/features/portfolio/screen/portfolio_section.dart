@@ -253,6 +253,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                 child: Image.network(
                   widget.data.imageUrl,
                   fit: BoxFit.cover,
+                  cacheWidth: 600,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
                     return Container(

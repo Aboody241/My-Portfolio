@@ -259,44 +259,43 @@ class _DownloadCvButtonState extends State<_DownloadCvButton> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedScale(
-          scale: _isHovered ? 1.03 : 1.0,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOutCubic,
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
-            decoration: BoxDecoration(
-              color: _isHovered ? AppColors.primaryDark : AppColors.primary,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
-                  blurRadius: _isHovered ? 16.r : 10.r,
-                  offset: Offset(0, _isHovered ? 6.h : 3.h),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.file_download_outlined,
+          transform: _isHovered
+              ? (Matrix4.identity()..scale(1.03, 1.03))
+              : Matrix4.identity(),
+          transformAlignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.primaryDark : AppColors.primary,
+            borderRadius: BorderRadius.circular(8.r),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
+                blurRadius: _isHovered ? 16.r : 10.r,
+                offset: Offset(0, _isHovered ? 6.h : 3.h),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.file_download_outlined,
+                color: Colors.white,
+                size: 18.r,
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                'Download CV',
+                style: AppTextStyles.button.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
                   color: Colors.white,
-                  size: 18.r,
                 ),
-                SizedBox(width: 8.w),
-                Text(
-                  'Download CV',
-                  style: AppTextStyles.button.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -324,57 +323,56 @@ class _ViewProjectsButtonState extends State<_ViewProjectsButton> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedScale(
-          scale: _isHovered ? 1.03 : 1.0,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOutCubic,
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
-            decoration: BoxDecoration(
+          transform: _isHovered
+              ? (Matrix4.identity()..scale(1.03, 1.03))
+              : Matrix4.identity(),
+          transformAlignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
+          decoration: BoxDecoration(
+            color: _isHovered
+                ? AppColors.primary.withValues(alpha: 0.08)
+                : Colors.white,
+            borderRadius: BorderRadius.circular(8.r),
+            border: Border.all(
               color: _isHovered
-                  ? AppColors.primary.withValues(alpha: 0.08)
-                  : Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(
-                color: _isHovered
-                    ? AppColors.primary
-                    : AppColors.border,
-                width: 1.5,
+                  ? AppColors.primary
+                  : AppColors.border,
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: _isHovered ? 0.06 : 0.02),
+                blurRadius: _isHovered ? 14.r : 6.r,
+                offset: Offset(0, _isHovered ? 4.h : 2.h),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: _isHovered ? 0.06 : 0.02),
-                  blurRadius: _isHovered ? 14.r : 6.r,
-                  offset: Offset(0, _isHovered ? 4.h : 2.h),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'View Projects',
+                style: AppTextStyles.button.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: _isHovered ? AppColors.primary : AppColors.textPrimary,
                 ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'View Projects',
-                  style: AppTextStyles.button.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
-                    color: _isHovered ? AppColors.primary : AppColors.textPrimary,
-                  ),
+              ),
+              SizedBox(width: 8.w),
+              AnimatedSlide(
+                offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOutCubic,
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: _isHovered ? AppColors.primary : AppColors.textPrimary,
+                  size: 18.r,
                 ),
-                SizedBox(width: 8.w),
-                AnimatedSlide(
-                  offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOutCubic,
-                  child: Icon(
-                    Icons.arrow_forward_rounded,
-                    color: _isHovered ? AppColors.primary : AppColors.textPrimary,
-                    size: 18.r,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -445,10 +443,11 @@ class _HeroAvatarState extends State<_HeroAvatar> {
                 curve: Curves.easeOutCubic,
                 scale: _isHovered ? 1.02 : 1.0,
                 child: Image.asset(
-                  'assets/images/image2.png',
+                  'assets/images/image2.jpg',
                   width: cardSize,
                   height: cardSize,
                   fit: BoxFit.cover,
+                  cacheWidth: 800,
                   alignment: const Alignment(0, -0.2),
                   errorBuilder: (context, error, stackTrace) {
                     return Center(

@@ -22,7 +22,7 @@ class ProjectCtaSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Do you have Project Idia?\nLet's discuss your project!",
+            "Let's build something great.",
             textAlign: TextAlign.center,
             style: AppTextStyles.h2.copyWith(
               fontSize: isDesktop ? 36.sp : 24.sp,
@@ -35,31 +35,32 @@ class ProjectCtaSection extends StatelessWidget {
           Container(
             constraints: BoxConstraints(maxWidth: 600.w),
             child: Text(
-              "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.",
+              "I'm always open to discussing mobile products, engineering opportunities, and interesting ideas.",
               textAlign: TextAlign.center,
               style: AppTextStyles.body.copyWith(
                 fontSize: 14.sp,
+                // ignore: deprecated_member_use
                 color: Colors.white.withOpacity(0.7),
                 height: 1.5,
               ),
             ),
           ),
           SizedBox(height: 32.h),
-          const _LetWorkTogetherButton(),
+          const _LetsConnectButton(),
         ],
       ),
     );
   }
 }
 
-class _LetWorkTogetherButton extends StatefulWidget {
-  const _LetWorkTogetherButton();
+class _LetsConnectButton extends StatefulWidget {
+  const _LetsConnectButton();
 
   @override
-  State<_LetWorkTogetherButton> createState() => _LetWorkTogetherButtonState();
+  State<_LetsConnectButton> createState() => _LetsConnectButtonState();
 }
 
-class _LetWorkTogetherButtonState extends State<_LetWorkTogetherButton> {
+class _LetsConnectButtonState extends State<_LetsConnectButton> {
   bool _isHovered = false;
 
   @override
@@ -69,50 +70,53 @@ class _LetWorkTogetherButtonState extends State<_LetWorkTogetherButton> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {},
-        child: AnimatedScale(
-          scale: _isHovered ? 1.05 : 1.0,
-          duration: const Duration(milliseconds: 150),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
-            decoration: BoxDecoration(
-              color: _isHovered ? AppColors.primaryDark : AppColors.primary,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: _isHovered
-                  ? [
-                      BoxShadow(
-                        // ignore: deprecated_member_use
-                        color: AppColors.primary.withOpacity(0.3),
-                        blurRadius: 12.r,
-                        offset: Offset(0, 6.h),
-                      )
-                    ]
-                  : [],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Let's work Together",
-                  style: AppTextStyles.button.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
-                    color: Colors.white,
-                  ),
+        onTap: () {
+          // Scroll to the contact section
+          // This works by finding the ContactSection key in the parent
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          transform: _isHovered
+              ? Matrix4.translationValues(0, -2.h, 0)
+              : Matrix4.identity(),
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.primaryDark : AppColors.primary,
+            borderRadius: BorderRadius.circular(8.r),
+            boxShadow: _isHovered
+                ? [
+                    BoxShadow(
+                      // ignore: deprecated_member_use
+                      color: AppColors.primary.withOpacity(0.3),
+                      blurRadius: 16.r,
+                      offset: Offset(0, 6.h),
+                    )
+                  ]
+                : [],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Let's Connect",
+                style: AppTextStyles.button.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                  color: Colors.white,
                 ),
-                SizedBox(width: 8.w),
-                AnimatedSlide(
-                  offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
-                  duration: const Duration(milliseconds: 150),
-                  child: Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white,
-                    size: 18.r,
-                  ),
+              ),
+              SizedBox(width: 8.w),
+              AnimatedSlide(
+                offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
+                duration: const Duration(milliseconds: 200),
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 18.r,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

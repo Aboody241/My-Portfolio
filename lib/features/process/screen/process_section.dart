@@ -177,8 +177,7 @@ class _DesktopProcessGrid extends StatelessWidget {
                   border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
-                      // ignore: deprecated_member_use
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 6.r,
                     )
                   ],
@@ -222,8 +221,7 @@ class _MobileProcessTimeline extends StatelessWidget {
                       border: Border.all(color: Colors.white, width: 2),
                       boxShadow: [
                         BoxShadow(
-                          // ignore: deprecated_member_use
-                          color: AppColors.primary.withOpacity(0.3),
+                          color: AppColors.primary.withValues(alpha: 0.3),
                           blurRadius: 6.r,
                         )
                       ],
@@ -280,16 +278,14 @@ class _ProcessCardState extends State<_ProcessCard> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            // ignore: deprecated_member_use
-            color: _isHovered ? AppColors.primary.withOpacity(0.3) : AppColors.border,
+            color: _isHovered ? AppColors.primary.withValues(alpha: 0.3) : AppColors.border,
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: _isHovered
-                  ? AppColors.primary.withOpacity(0.08)
-                  : Colors.black.withOpacity(0.02),
+                  ? AppColors.primary.withValues(alpha: 0.08)
+                  : Colors.black.withValues(alpha: 0.02),
               blurRadius: _isHovered ? 25.r : 20.r,
               offset: Offset(0, _isHovered ? 12.h : 10.h),
             ),
@@ -315,8 +311,7 @@ class _ProcessCardState extends State<_ProcessCard> {
                 style: TextStyle(
                   fontSize: 54.sp,
                   fontWeight: FontWeight.bold,
-                  // ignore: deprecated_member_use
-                  color: AppColors.primary.withOpacity(0.06),
+                  color: AppColors.primary.withValues(alpha: 0.06),
                 ),
               ),
             ),
@@ -333,8 +328,7 @@ class _ProcessCardState extends State<_ProcessCard> {
                       width: 48.r,
                       height: 48.r,
                       decoration: BoxDecoration(
-                        // ignore: deprecated_member_use
-                        color: _isHovered ? AppColors.primary.withOpacity(0.1) : AppColors.surface,
+                        color: _isHovered ? AppColors.primary.withValues(alpha: 0.1) : AppColors.surface,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: _isHovered ? AppColors.primary : AppColors.border,
