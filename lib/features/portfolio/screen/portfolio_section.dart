@@ -28,52 +28,52 @@ class PortfolioSection extends StatelessWidget {
 
     final projects = [
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • MOBILE APP',
+        title: 'E-Commerce Mobile Application',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'A high-performance cross-platform shopping application built with Flutter, BLoC state management, and Stripe payments.',
         imageUrl:
-            'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&auto=format&fit=crop',
       ),
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • FINANCE',
+        title: 'Finance & Expense Tracker App',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'Clean architecture mobile application for financial budgeting, real-time analytics, and secure cloud synchronization.',
         imageUrl:
-            'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&auto=format&fit=crop',
       ),
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • HEALTHCARE',
+        title: 'Telemedicine & Health App',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'Patient-doctor appointment booking app with real-time chat, video consultations, and health metric tracking.',
         imageUrl:
-            'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop',
       ),
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • PRODUCTIVITY',
+        title: 'Task & Team Workflow App',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'Collaborative mobile productivity application with offline-first support, local caching, and push notifications.',
         imageUrl:
-            'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&auto=format&fit=crop',
       ),
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • FOOD & DELIVERY',
+        title: 'Food Ordering & Delivery App',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'Real-time order tracking mobile application with Google Maps integration, live driver updates, and seamless checkout.',
         imageUrl:
-            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&auto=format&fit=crop',
       ),
       const _ProjectData(
-        tag: 'UI-UX DESIGN',
-        title: 'Product Admin Dashboard',
+        tag: 'FLUTTER • SOCIAL & REAL-TIME',
+        title: 'Real-Time Chat & Community App',
         description:
-            'Vivamus eleifend convallis ante, non pharetra libero molestie laoreet. Donec id imperdiet lacus.',
+            'Cross-platform messaging application powered by Firebase & WebSockets with end-to-end media sharing and voice notes.',
         imageUrl:
-            'https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop',
       ),
     ];
 
@@ -86,27 +86,28 @@ class PortfolioSection extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: isDesktop ? 100.w : 24.w,
-            vertical: isDesktop ? 80.h : 40.h,
+            vertical: isDesktop ? 80.h : 48.h,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Portfolio",
+                "Projects",
                 style: AppTextStyles.h2.copyWith(
                   fontSize: isDesktop ? 38.sp : 28.sp,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
+                  letterSpacing: -0.5,
                 ),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 14.h),
               Container(
-                constraints: BoxConstraints(maxWidth: 600.w),
+                constraints: BoxConstraints(maxWidth: 620.w),
                 child: Text(
-                  "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.",
+                  "A showcase of real-world mobile applications built with Flutter and Dart, focusing on clean architecture, performance, and seamless user experiences.",
                   textAlign: TextAlign.center,
                   style: AppTextStyles.body.copyWith(
-                    fontSize: 16.sp,
+                    fontSize: isDesktop ? 16.sp : 14.sp,
                     color: AppColors.textSecondary,
                     height: 1.6,
                   ),
@@ -132,22 +133,22 @@ class PortfolioSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: _ProjectCard(data: projects[0])),
-                SizedBox(width: 32.w),
+                SizedBox(width: 28.w),
                 Expanded(child: _ProjectCard(data: projects[1])),
-                SizedBox(width: 32.w),
+                SizedBox(width: 28.w),
                 Expanded(child: _ProjectCard(data: projects[2])),
               ],
             ),
           ),
-          SizedBox(height: 32.h),
+          SizedBox(height: 28.h),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: _ProjectCard(data: projects[3])),
-                SizedBox(width: 32.w),
+                SizedBox(width: 28.w),
                 Expanded(child: _ProjectCard(data: projects[4])),
-                SizedBox(width: 32.w),
+                SizedBox(width: 28.w),
                 Expanded(child: _ProjectCard(data: projects[5])),
               ],
             ),
@@ -162,29 +163,29 @@ class PortfolioSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: _ProjectCard(data: projects[0])),
-                SizedBox(width: 24.w),
+                SizedBox(width: 20.w),
                 Expanded(child: _ProjectCard(data: projects[1])),
               ],
             ),
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: 20.h),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: _ProjectCard(data: projects[2])),
-                SizedBox(width: 24.w),
+                SizedBox(width: 20.w),
                 Expanded(child: _ProjectCard(data: projects[3])),
               ],
             ),
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: 20.h),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: _ProjectCard(data: projects[4])),
-                SizedBox(width: 24.w),
+                SizedBox(width: 20.w),
                 Expanded(child: _ProjectCard(data: projects[5])),
               ],
             ),
@@ -195,7 +196,7 @@ class PortfolioSection extends StatelessWidget {
       return Column(
         children: projects
             .map((p) => Padding(
-                  padding: EdgeInsets.only(bottom: 24.h),
+                  padding: EdgeInsets.only(bottom: 20.h),
                   child: _ProjectCard(data: p),
                 ))
             .toList(),
@@ -222,36 +223,33 @@ class _ProjectCardState extends State<_ProjectCard> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 240),
         curve: Curves.easeOutCubic,
         transform: _isHovered
-            ? Matrix4.translationValues(0, -8.h, 0)
+            ? Matrix4.translationValues(0, -6.h, 0)
             : Matrix4.identity(),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: _isHovered
-                  ? AppColors.primary.withOpacity(0.08)
-                  : Colors.black.withOpacity(0.02),
-              blurRadius: _isHovered ? 30.r : 20.r,
-              offset: Offset(0, _isHovered ? 15.h : 10.h),
+                  ? AppColors.primary.withValues(alpha: 0.12)
+                  : Colors.black.withValues(alpha: 0.03),
+              blurRadius: _isHovered ? 28.r : 16.r,
+              offset: Offset(0, _isHovered ? 12.h : 6.h),
             ),
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.r),
-                topRight: Radius.circular(16.r),
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                height: 220.h,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16.r),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Image Header with Aspect Ratio
+              AspectRatio(
+                aspectRatio: 16 / 10,
                 child: Image.network(
                   widget.data.imageUrl,
                   fit: BoxFit.cover,
@@ -260,7 +258,10 @@ class _ProjectCardState extends State<_ProjectCard> {
                     return Container(
                       color: AppColors.surface,
                       child: const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.primary,
+                        ),
                       ),
                     );
                   },
@@ -269,112 +270,118 @@ class _ProjectCardState extends State<_ProjectCard> {
                       color: AppColors.surface,
                       alignment: Alignment.center,
                       child: Icon(
-                        Icons.image_outlined,
-                        size: 48.r,
+                        Icons.phone_android_rounded,
+                        size: 44.r,
                         color: AppColors.textLight,
                       ),
                     );
                   },
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(24.r),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.data.tag,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                      color: AppColors.textLight,
+
+              // Content Details
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Category Tag
+                    Text(
+                      widget.data.tag,
+                      style: TextStyle(
+                        fontFamily: 'Work Sans',
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.1,
+                        color: AppColors.primary,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    widget.data.title,
-                    style: AppTextStyles.h3.copyWith(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+                    SizedBox(height: 6.h),
+
+                    // Project Title
+                    Text(
+                      widget.data.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.h3.copyWith(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 12.h),
-                  Text(
-                    widget.data.description,
-                    style: AppTextStyles.body.copyWith(
-                      fontSize: 14.sp,
-                      color: AppColors.textSecondary,
-                      height: 1.5,
+                    SizedBox(height: 8.h),
+
+                    // Description
+                    Text(
+                      widget.data.description,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.body.copyWith(
+                        fontSize: 13.5.sp,
+                        color: AppColors.textSecondary,
+                        height: 1.5,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 24.h),
-                  const _CaseStudyButton(),
-                ],
+                    SizedBox(height: 18.h),
+
+                    // Action Button
+                    _CaseStudyButton(isParentHovered: _isHovered),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _CaseStudyButton extends StatefulWidget {
-  const _CaseStudyButton();
+class _CaseStudyButton extends StatelessWidget {
+  const _CaseStudyButton({this.isParentHovered = false});
 
-  @override
-  State<_CaseStudyButton> createState() => _CaseStudyButtonState();
-}
-
-class _CaseStudyButtonState extends State<_CaseStudyButton> {
-  bool _isHovered = false;
+  final bool isParentHovered;
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {},
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(6.r),
-            border: Border.all(
-              color: AppColors.primary,
-              width: 1.5,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOutCubic,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: isParentHovered
+            ? AppColors.primary
+            : AppColors.primary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(6.r),
+        border: Border.all(
+          color: AppColors.primary,
+          width: 1.2,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Case Study',
+            style: AppTextStyles.button.copyWith(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.bold,
+              color: isParentHovered ? Colors.white : AppColors.primary,
             ),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Case Study',
-                style: AppTextStyles.button.copyWith(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
-              ),
-              SizedBox(width: 8.w),
-              AnimatedSlide(
-                offset: _isHovered ? const Offset(0.2, 0) : Offset.zero,
-                duration: const Duration(milliseconds: 150),
-                child: Icon(
-                  Icons.arrow_forward_rounded,
-                  color: AppColors.primary,
-                  size: 16.r,
-                ),
-              ),
-            ],
+          SizedBox(width: 6.w),
+          AnimatedSlide(
+            offset: isParentHovered ? const Offset(0.2, 0) : Offset.zero,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            child: Icon(
+              Icons.arrow_forward_rounded,
+              color: isParentHovered ? Colors.white : AppColors.primary,
+              size: 15.r,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -399,32 +406,47 @@ class _MoreProjectsButtonState extends State<_MoreProjectsButton> {
       child: GestureDetector(
         onTap: () {},
         child: AnimatedScale(
-          scale: _isHovered ? 1.05 : 1.0,
-          duration: const Duration(milliseconds: 150),
+          scale: _isHovered ? 1.04 : 1.0,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 15.h),
             decoration: BoxDecoration(
               color: _isHovered ? AppColors.primaryDark : AppColors.primary,
               borderRadius: BorderRadius.circular(8.r),
-              boxShadow: _isHovered
-                  ? [
-                      BoxShadow(
-                        // ignore: deprecated_member_use
-                        color: AppColors.primary.withOpacity(0.3),
-                        blurRadius: 12.r,
-                        offset: Offset(0, 6.h),
-                      )
-                    ]
-                  : [],
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
+                  blurRadius: _isHovered ? 16.r : 10.r,
+                  offset: Offset(0, _isHovered ? 6.h : 3.h),
+                ),
+              ],
             ),
-            child: Text(
-              'More Project',
-              style: AppTextStyles.button.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Colors.white,
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'More Projects',
+                  style: AppTextStyles.button.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                AnimatedSlide(
+                  offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOutCubic,
+                  child: Icon(
+                    Icons.arrow_forward_rounded,
+                    color: Colors.white,
+                    size: 16.r,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:abdullah_portfolio/core/theme/app_gradients.dart';
-import 'package:abdullah_portfolio/core/theme/colors.dart';
 import 'package:abdullah_portfolio/features/hero/screens/hero_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/contact_section.dart';
 import 'package:abdullah_portfolio/features/home/widgets/mobile_drawer.dart';
@@ -7,7 +6,6 @@ import 'package:abdullah_portfolio/features/home/widgets/project_cta_section.dar
 import 'package:abdullah_portfolio/features/home/widgets/responsive_nav_bar.dart';
 import 'package:abdullah_portfolio/features/home/widgets/what_i_do_section.dart';
 import 'package:abdullah_portfolio/features/portfolio/screen/portfolio_section.dart';
-import 'package:abdullah_portfolio/features/process/screen/process_section.dart';
 import 'package:abdullah_portfolio/features/skills/screen/skills_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,11 +41,11 @@ class _HomePageState extends State<HomePage> {
       _scrollToSection(_heroKey);
     } else if (name == 'Skills') {
       _scrollToSection(_skillsKey);
-    } else if (name == 'Services') {
+    } else if (name == 'What I Do' || name == 'Services') {
       _scrollToSection(_whatIDoKey);
-    } else if (name == 'Experience / Process') {
+    } else if (name == 'How I Work' || name == 'Experience / Process') {
       _scrollToSection(_processKey);
-    } else if (name == 'Featured Projects') {
+    } else if (name == 'Projects' || name == 'Featured Projects' || name == 'Portfolio') {
       _scrollToSection(_portfolioKey);
     } else if (name == 'Contact') {
       _scrollToSection(_contactKey);
@@ -76,7 +74,10 @@ class _HomePageState extends State<HomePage> {
               title: ResponsiveNavBar(onSectionSelected: _onSectionSelected),
             ),
             SliverToBoxAdapter(
-              child: HeroSection(key: _heroKey),
+              child: HeroSection(
+                key: _heroKey,
+                onViewProjectsTap: () => _scrollToSection(_portfolioKey),
+              ),
             ),
             SliverToBoxAdapter(
               child: SkillsSection(key: _skillsKey),
@@ -87,15 +88,15 @@ class _HomePageState extends State<HomePage> {
                 onContactTap: () => _scrollToSection(_contactKey),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Container(
-                key: _processKey,
-                decoration: const BoxDecoration(
-                  color: AppColors.background,
-                ),
-                child: const ProcessSection(),
-              ),
-            ),
+            // SliverToBoxAdapter(
+            //   child: Container(
+            //     key: _processKey,
+            //     decoration: const BoxDecoration(
+            //       color: AppColors.background,
+            //     ),
+            //     child: const ProcessSection(),
+            //   ),
+            // ),
             SliverToBoxAdapter(
               child: PortfolioSection(key: _portfolioKey),
             ),

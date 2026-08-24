@@ -13,13 +13,13 @@ class ResponsiveNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final isDesktop = width >= 900;
+    final isDesktop = width >= 1024;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40.w),
       child: isDesktop
           ? _DesktopNavBar(onSectionSelected: onSectionSelected)
-          : const _MobileNavBar(),
+          : _MobileNavBar(onSectionSelected: onSectionSelected),
     );
   }
 }
@@ -42,34 +42,32 @@ class _DesktopNavBar extends StatelessWidget {
               onPressed: () => onSectionSelected('Home'),
               isActive: true,
             ),
-            SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             _NavAction(
               title: 'About',
               onPressed: () => onSectionSelected('About'),
             ),
-            SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             _NavAction(
               title: 'Skills',
               onPressed: () => onSectionSelected('Skills'),
             ),
-            SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             _NavAction(
-              title: 'Services',
-              onPressed: () => onSectionSelected('Services'),
+              title: 'What I Do',
+              onPressed: () => onSectionSelected('What I Do'),
             ),
-              SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             _NavAction(
-              title: 'Experience / Process',
-              onPressed: () => onSectionSelected('Experience / Process'),
+              title: 'How I Work',
+              onPressed: () => onSectionSelected('How I Work'),
             ),
-            SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             _NavAction(
-              title: 'Featured Projects',
-              onPressed: () => onSectionSelected('Featured Projects'),
+              title: 'Projects',
+              onPressed: () => onSectionSelected('Projects'),
             ),
-            
-          
-            SizedBox(width: 32.w),
+            SizedBox(width: 28.w),
             ContactButton(onPressed: () => onSectionSelected('Contact')),
           ],
         ),
@@ -79,7 +77,9 @@ class _DesktopNavBar extends StatelessWidget {
 }
 
 class _MobileNavBar extends StatelessWidget {
-  const _MobileNavBar();
+  const _MobileNavBar({required this.onSectionSelected});
+
+  final ValueChanged<String> onSectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +127,11 @@ class _NavActionState extends State<_NavAction> {
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 150),
           style: AppTextStyles.body.copyWith(
-                fontSize: 16.sp,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w600,
             color: widget.isActive
                 ? AppColors.primary
                 : (_isHovered ? AppColors.primary : AppColors.textPrimary),
-        
           ),
           child: Text(widget.title),
         ),

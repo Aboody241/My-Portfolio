@@ -4,9 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SkillItem {
   final String name;
+  final String descriptor;
   final String iconUrl;
+  final IconData fallbackIcon;
+  final bool isCore;
 
-  const SkillItem({required this.name, required this.iconUrl});
+  const SkillItem({
+    required this.name,
+    required this.descriptor,
+    required this.iconUrl,
+    required this.fallbackIcon,
+    this.isCore = false,
+  });
 }
 
 class SkillCategory {
@@ -25,41 +34,79 @@ class SkillsSection extends StatelessWidget {
       skills: [
         SkillItem(
           name: "Flutter",
+          descriptor: "Cross-platform Mobile Development",
           iconUrl: "https://img.icons8.com/color/96/flutter.png",
+          fallbackIcon: Icons.flutter_dash,
+          isCore: true,
         ),
         SkillItem(
           name: "Dart",
+          descriptor: "Application Development",
           iconUrl: "https://img.icons8.com/color/96/dart.png",
-        ),
-        SkillItem(
-          name: "Android SDK",
-          iconUrl: "https://img.icons8.com/color/96/android-os.png",
+          fallbackIcon: Icons.code_rounded,
+          isCore: true,
         ),
         SkillItem(
           name: "iOS / SwiftUI",
+          descriptor: "Native iOS Development",
           iconUrl: "https://img.icons8.com/color/96/swift.png",
+          fallbackIcon: Icons.apple_rounded,
+          isCore: true,
+        ),
+        SkillItem(
+          name: "Android SDK",
+          descriptor: "Android Development",
+          iconUrl: "https://img.icons8.com/color/96/android-os.png",
+          fallbackIcon: Icons.android_rounded,
+          isCore: false,
         ),
       ],
     ),
     SkillCategory(
-      title: "BACKEND & ARCHITECTURE",
+      title: "ARCHITECTURE & INTEGRATION",
       skills: [
         SkillItem(
           name: "Clean Architecture",
+          descriptor: "Scalable & Maintainable Code",
           iconUrl: "https://img.icons8.com/color/96/clean-code.png",
+          fallbackIcon: Icons.layers_rounded,
+          isCore: true,
         ),
         SkillItem(
-          name: "BLoC & State",
+          name: "BLoC / Cubit",
+          descriptor: "Predictable State Management",
           iconUrl:
               "https://raw.githubusercontent.com/felangel/bloc/master/docs/assets/bloc_logo_full.png",
+          fallbackIcon: Icons.alt_route_rounded,
+          isCore: true,
         ),
         SkillItem(
-          name: "Firebase & Supabase",
+          name: "REST APIs",
+          descriptor: "API Integration",
+          iconUrl: "https://img.icons8.com/color/96/connected.png",
+          fallbackIcon: Icons.hub_rounded,
+          isCore: true,
+        ),
+        SkillItem(
+          name: "Firebase",
+          descriptor: "Authentication & Cloud Services",
           iconUrl: "https://img.icons8.com/color/96/firebase.png",
+          fallbackIcon: Icons.local_fire_department_rounded,
+          isCore: false,
         ),
         SkillItem(
-          name: "REST & GraphQL APIs",
-          iconUrl: "https://img.icons8.com/color/96/graphql.png",
+          name: "Supabase",
+          descriptor: "Database & Backend Services",
+          iconUrl: "https://img.icons8.com/color/96/supabase.png",
+          fallbackIcon: Icons.bolt_rounded,
+          isCore: false,
+        ),
+        SkillItem(
+          name: "Dependency Injection",
+          descriptor: "Modular Application Design",
+          iconUrl: "https://img.icons8.com/fluency/96/module.png",
+          fallbackIcon: Icons.extension_rounded,
+          isCore: false,
         ),
       ],
     ),
@@ -68,19 +115,31 @@ class SkillsSection extends StatelessWidget {
       skills: [
         SkillItem(
           name: "Git & GitHub",
+          descriptor: "Version Control",
           iconUrl: "https://img.icons8.com/color/96/git.png",
+          fallbackIcon: Icons.commit_rounded,
+          isCore: false,
         ),
         SkillItem(
-          name: "Figma",
-          iconUrl: "https://img.icons8.com/color/96/figma.png",
-        ),
-        SkillItem(
-          name: "VS Code & Tooling",
+          name: "VS Code",
+          descriptor: "Development Environment",
           iconUrl: "https://img.icons8.com/color/96/visual-studio-code-2.png",
+          fallbackIcon: Icons.terminal_rounded,
+          isCore: false,
         ),
         SkillItem(
           name: "Postman",
+          descriptor: "API Testing",
           iconUrl: "https://img.icons8.com/color/96/postman.png",
+          fallbackIcon: Icons.send_rounded,
+          isCore: false,
+        ),
+        SkillItem(
+          name: "Figma",
+          descriptor: "Interface Prototyping",
+          iconUrl: "https://img.icons8.com/color/96/figma.png",
+          fallbackIcon: Icons.draw_rounded,
+          isCore: false,
         ),
       ],
     ),
@@ -95,8 +154,8 @@ class SkillsSection extends StatelessWidget {
     final horizontalPadding = isDesktop
         ? 100.w
         : isTablet
-        ? 48.w
-        : 24.w;
+            ? 48.w
+            : 24.w;
 
     return Container(
       width: double.infinity,
@@ -108,7 +167,7 @@ class SkillsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Subtitle / Category Tag
+          // Subtitle Tag
           Text(
             "TECHNICAL EXPERTISE",
             style: GoogleFonts.inter(
@@ -134,9 +193,9 @@ class SkillsSection extends StatelessWidget {
 
           // Subtitle description
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 600.w),
+            constraints: BoxConstraints(maxWidth: 620.w),
             child: Text(
-              "Focused on building robust cross-platform applications with clean code architecture, intuitive interfaces, and efficient developer tooling.",
+              "Focused on building robust, high-performance cross-platform mobile applications with clean architecture, structured state management, and reliable backend integrations.",
               style: GoogleFonts.inter(
                 fontSize: isDesktop ? 15.sp : 14.sp,
                 fontWeight: FontWeight.w400,
@@ -152,7 +211,7 @@ class SkillsSection extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: categories.length,
-            separatorBuilder: (context, index) => SizedBox(height: 48.h),
+            separatorBuilder: (context, index) => SizedBox(height: 44.h),
             itemBuilder: (context, index) {
               return _SkillCategoryBlock(
                 category: categories[index],
@@ -187,7 +246,7 @@ class _SkillCategoryBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Category Uppercase Label with a small indicator line
+        // Category Label with vertical purple indicator
         Row(
           children: [
             Container(
@@ -210,7 +269,7 @@ class _SkillCategoryBlock extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 18.h),
 
         // Skill Cards Grid
         LayoutBuilder(
@@ -251,107 +310,177 @@ class _SkillCardState extends State<_SkillCard> {
 
   @override
   Widget build(BuildContext context) {
+    final isCore = widget.skill.isCore;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.basic,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-        padding: EdgeInsets.all(16.r),
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeOutCubic,
+        transform: _isHovered
+            ? Matrix4.translationValues(0, -4.h, 0)
+            : Matrix4.identity(),
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: const Color(0xFF141414),
-          borderRadius: BorderRadius.circular(10.r),
+          borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: _isHovered
                 ? const Color(0xFF8B5CF6)
-                : const Color(0xFF222226),
-            width: 1.0,
+                : (isCore
+                    ? const Color(0xFF8B5CF6).withValues(alpha: 0.28)
+                    : const Color(0xFF222226)),
+            width: isCore ? 1.2 : 1.0,
           ),
-          boxShadow: _isHovered
-              ? [
-                  BoxShadow(
-                    color: const Color(0xFF8B5CF6).withOpacity(0.12),
-                    blurRadius: 16,
-                    offset: const Offset(0, 4),
-                  ),
-                ]
-              : [],
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered
+                  ? const Color(0xFF8B5CF6).withValues(alpha: 0.16)
+                  : (isCore
+                      ? const Color(0xFF8B5CF6).withValues(alpha: 0.04)
+                      : Colors.black.withValues(alpha: 0.2)),
+              blurRadius: _isHovered ? 20.r : 10.r,
+              offset: Offset(0, _isHovered ? 8.h : 4.h),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Top: Icon / Image
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: _isHovered
-                    ? const Color(0xFF8B5CF6).withOpacity(0.15)
-                    : const Color(0xFF1A1A1E),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Image.network(
-                widget.skill.iconUrl,
-                width: 24.r,
-                height: 24.r,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(
-                    Icons.code_rounded,
-                    size: 20.r,
+            // Top: Icon + Core indicator badge if core
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 240),
+                  curve: Curves.easeOutCubic,
+                  padding: EdgeInsets.all(8.r),
+                  decoration: BoxDecoration(
                     color: _isHovered
-                        ? const Color(0xFFA78BFA)
-                        : const Color(0xFF9CA3AF),
-                  );
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return SizedBox(
-                    width: 24.r,
-                    height: 24.r,
-                    child: Center(
-                      child: SizedBox(
-                        width: 12.r,
-                        height: 12.r,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 1.5,
-                          color: Color(0xFFA78BFA),
-                        ),
+                        ? const Color(0xFF8B5CF6).withValues(alpha: 0.18)
+                        : (isCore
+                            ? const Color(0xFF8B5CF6).withValues(alpha: 0.10)
+                            : const Color(0xFF1A1A1E)),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: AnimatedScale(
+                    duration: const Duration(milliseconds: 240),
+                    curve: Curves.easeOutCubic,
+                    scale: _isHovered ? 1.08 : 1.0,
+                    child: Image.network(
+                      widget.skill.iconUrl,
+                      width: 24.r,
+                      height: 24.r,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(
+                          widget.skill.fallbackIcon,
+                          size: 22.r,
+                          color: _isHovered
+                              ? const Color(0xFFA78BFA)
+                              : (isCore
+                                  ? const Color(0xFFA78BFA)
+                                  : const Color(0xFF9CA3AF)),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return SizedBox(
+                          width: 24.r,
+                          height: 24.r,
+                          child: Center(
+                            child: SizedBox(
+                              width: 12.r,
+                              height: 12.r,
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                color: Color(0xFFA78BFA),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                if (isCore)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 3.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(4.r),
+                      border: Border.all(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                        width: 0.8,
                       ),
                     ),
-                  );
-                },
-              ),
+                    child: Text(
+                      "CORE",
+                      style: GoogleFonts.inter(
+                        fontSize: 9.5.sp,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.8,
+                        color: const Color(0xFFA78BFA),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 14.h),
 
             // Skill Name
             Text(
               widget.skill.name,
               style: GoogleFonts.inter(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+                fontSize: 15.sp,
+                fontWeight: isCore ? FontWeight.w700 : FontWeight.w600,
                 color: const Color(0xFFF3F4F6),
+                letterSpacing: -0.2,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 12.h),
+            SizedBox(height: 4.h),
 
-            // Full-width Solid Line (100% complete line)
+            // Short Descriptor
+            Text(
+              widget.skill.descriptor,
+              style: GoogleFonts.inter(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                color: const Color(0xFF9CA3AF),
+                height: 1.35,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: 14.h),
+
+            // Short decorative accent line (NOT a proficiency bar)
             AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              height: 3.h,
-              width: double.infinity,
+              duration: const Duration(milliseconds: 280),
+              curve: Curves.easeOutCubic,
+              height: 2.5.h,
+              width: _isHovered ? 56.w : 36.w,
               decoration: BoxDecoration(
                 color: _isHovered
                     ? const Color(0xFFA78BFA)
-                    : const Color(0xFF8B5CF6),
+                    : (isCore
+                        ? const Color(0xFF8B5CF6).withValues(alpha: 0.7)
+                        : const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
                 borderRadius: BorderRadius.circular(2.r),
                 boxShadow: _isHovered
-                    ? [const BoxShadow(color: Color(0xFF8B5CF6), blurRadius: 4)]
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF8B5CF6).withValues(alpha: 0.5),
+                          blurRadius: 6,
+                          spreadRadius: 0,
+                        ),
+                      ]
                     : [],
               ),
             ),

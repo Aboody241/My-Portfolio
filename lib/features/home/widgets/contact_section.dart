@@ -548,7 +548,7 @@ class _FooterLinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final links = ['Home', 'About', 'Services', 'Process', 'Portfolio', 'Blog', 'Contact'];
+    final links = ['Home', 'About', 'Skills', 'What I Do', 'How I Work', 'Projects', 'Contact'];
 
     if (isVertical) {
       return Column(

@@ -4,12 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HeroSection extends StatelessWidget {
-  const HeroSection({super.key});
+  const HeroSection({
+    super.key,
+    this.onViewProjectsTap,
+    this.onDownloadCvTap,
+  });
+
+  final VoidCallback? onViewProjectsTap;
+  final VoidCallback? onDownloadCvTap;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final isDesktop = width >= 950;
+    final isDesktop = width >= 1024;
+    final isTablet = width >= 768 && width < 1024;
+
+    final horizontalPadding = isDesktop
+        ? 100.w
+        : isTablet
+            ? 48.w
+            : 24.w;
 
     return Container(
       width: double.infinity,
@@ -18,10 +32,18 @@ class HeroSection extends StatelessWidget {
         top: false,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: isDesktop ? 100.w : 24.w,
+            horizontal: horizontalPadding,
             vertical: isDesktop ? 80.h : 40.h,
           ),
-          child: isDesktop ? const _DesktopHero() : const _MobileHero(),
+          child: isDesktop
+              ? _DesktopHero(
+                  onViewProjectsTap: onViewProjectsTap,
+                  onDownloadCvTap: onDownloadCvTap,
+                )
+              : _MobileHero(
+                  onViewProjectsTap: onViewProjectsTap,
+                  onDownloadCvTap: onDownloadCvTap,
+                ),
         ),
       ),
     );
@@ -29,7 +51,13 @@ class HeroSection extends StatelessWidget {
 }
 
 class _DesktopHero extends StatelessWidget {
-  const _DesktopHero();
+  const _DesktopHero({
+    this.onViewProjectsTap,
+    this.onDownloadCvTap,
+  });
+
+  final VoidCallback? onViewProjectsTap;
+  final VoidCallback? onDownloadCvTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +70,14 @@ class _DesktopHero extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const _HeroContent(),
-              SizedBox(height: 48.h),
-              const _StatsBar(),
+              _HeroContent(
+                onViewProjectsTap: onViewProjectsTap,
+                onDownloadCvTap: onDownloadCvTap,
+              ),
             ],
           ),
         ),
-        SizedBox(width: 60.w),
+        SizedBox(width: 48.w),
         const Expanded(
           flex: 5,
           child: Center(
@@ -61,7 +90,13 @@ class _DesktopHero extends StatelessWidget {
 }
 
 class _MobileHero extends StatelessWidget {
-  const _MobileHero();
+  const _MobileHero({
+    this.onViewProjectsTap,
+    this.onDownloadCvTap,
+  });
+
+  final VoidCallback? onViewProjectsTap;
+  final VoidCallback? onDownloadCvTap;
 
   @override
   Widget build(BuildContext context) {
@@ -69,104 +104,151 @@ class _MobileHero extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const _HeroAvatar(),
-        SizedBox(height: 40.h),
-        const _HeroContent(isCentered: true),
-        SizedBox(height: 40.h),
-        const _StatsBar(),
+        SizedBox(height: 36.h),
+        _HeroContent(
+          isCentered: true,
+          onViewProjectsTap: onViewProjectsTap,
+          onDownloadCvTap: onDownloadCvTap,
+        ),
       ],
     );
   }
 }
 
 class _HeroContent extends StatelessWidget {
-  const _HeroContent({this.isCentered = false});
+  const _HeroContent({
+    this.isCentered = false,
+    this.onViewProjectsTap,
+    this.onDownloadCvTap,
+  });
 
   final bool isCentered;
+  final VoidCallback? onViewProjectsTap;
+  final VoidCallback? onDownloadCvTap;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width >= 1024;
 
     return Column(
       crossAxisAlignment:
           isCentered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
+        // Greeting
         Text(
           "Hello, I'm",
           style: AppTextStyles.h1.copyWith(
-            fontSize: isCentered ? 36.sp : 56.sp,
+            fontSize: isCentered ? 30.sp : 48.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
-            height: 1.1,
+            height: 1.15,
+            letterSpacing: -0.5,
           ),
         ),
+        SizedBox(height: 4.h),
+
+        // Name (Strongest element)
         Text(
           "Abdullah Essam",
           style: AppTextStyles.h1.copyWith(
-            fontSize: isCentered ? 40.sp : 60.sp,
-            fontWeight: FontWeight.bold,
+            fontSize: isCentered ? 36.sp : 56.sp,
+            fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,
             height: 1.2,
+            letterSpacing: -1.0,
           ),
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: 20.h),
+
+        // Professional Description
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: isCentered ? 16.w : 0),
-          child: RichText(
-            textAlign: isCentered ? TextAlign.center : TextAlign.start,
-            text: TextSpan(
-              style: AppTextStyles.body.copyWith(
-                fontSize: 16.sp,
-                color: AppColors.textSecondary,
-                height: 1.6,
+          padding: EdgeInsets.symmetric(horizontal: isCentered ? 8.w : 0),
+          child: Column(
+            crossAxisAlignment: isCentered
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            children: [
+              RichText(
+                textAlign: isCentered ? TextAlign.center : TextAlign.start,
+                text: TextSpan(
+                  style: AppTextStyles.body.copyWith(
+                    fontSize: isDesktop ? 16.sp : 14.sp,
+                    color: AppColors.textSecondary,
+                    height: 1.65,
+                  ),
+                  children: [
+                    const TextSpan(text: "I'm a "),
+                    TextSpan(
+                      text: "Mobile App Engineer",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const TextSpan(text: " specializing in "),
+                    TextSpan(
+                      text: "Flutter",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const TextSpan(text: " and "),
+                    TextSpan(
+                      text: "Dart",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const TextSpan(
+                      text:
+                          ", focused on building reliable, scalable, and user-friendly mobile applications.",
+                    ),
+                  ],
+                ),
               ),
-              children: [
-                const TextSpan(text: "I'm a Freelance "),
-                TextSpan(
-                  text: "UI/UX Designer",
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    // ignore: deprecated_member_use
-                    decorationColor: AppColors.primary.withOpacity(0.4),
-                    decorationStyle: TextDecorationStyle.wavy,
-                  ),
+              SizedBox(height: 10.h),
+              Text(
+                "I focus on clean architecture, maintainable code, smooth user experiences, and building mobile products that solve real-world problems.",
+                textAlign: isCentered ? TextAlign.center : TextAlign.start,
+                style: AppTextStyles.body.copyWith(
+                  fontSize: isDesktop ? 15.sp : 13.5.sp,
+                  color: AppColors.textSecondary,
+                  height: 1.6,
                 ),
-                const TextSpan(text: " and "),
-                TextSpan(
-                  text: "Developer",
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    // ignore: deprecated_member_use
-                    decorationColor: AppColors.primary.withOpacity(0.4),
-                    decorationStyle: TextDecorationStyle.wavy,
-                  ),
-                ),
-                const TextSpan(
-                  text:
-                      " based in London, England. I strive to build immersive and beautiful web applications through carefully crafted code and user-centric design.",
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         SizedBox(height: 32.h),
-        const _SayHelloButton(),
+
+        // CTA Buttons: [ Download CV ] [ View Projects → ]
+        Wrap(
+          spacing: 16.w,
+          runSpacing: 12.h,
+          alignment: isCentered ? WrapAlignment.center : WrapAlignment.start,
+          children: [
+            _DownloadCvButton(onTap: onDownloadCvTap),
+            _ViewProjectsButton(onTap: onViewProjectsTap),
+          ],
+        ),
       ],
     );
   }
 }
 
-class _SayHelloButton extends StatefulWidget {
-  const _SayHelloButton();
+class _DownloadCvButton extends StatefulWidget {
+  const _DownloadCvButton({this.onTap});
+
+  final VoidCallback? onTap;
 
   @override
-  State<_SayHelloButton> createState() => _SayHelloButtonState();
+  State<_DownloadCvButton> createState() => _DownloadCvButtonState();
 }
 
-class _SayHelloButtonState extends State<_SayHelloButton> {
+class _DownloadCvButtonState extends State<_DownloadCvButton> {
   bool _isHovered = false;
 
   @override
@@ -176,34 +258,44 @@ class _SayHelloButtonState extends State<_SayHelloButton> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {},
+        onTap: widget.onTap,
         child: AnimatedScale(
-          scale: _isHovered ? 1.05 : 1.0,
-          duration: const Duration(milliseconds: 150),
+          scale: _isHovered ? 1.03 : 1.0,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
             decoration: BoxDecoration(
               color: _isHovered ? AppColors.primaryDark : AppColors.primary,
               borderRadius: BorderRadius.circular(8.r),
-              boxShadow: _isHovered
-                  ? [
-                      BoxShadow(
-                        // ignore: deprecated_member_use
-                        color: AppColors.primary.withOpacity(0.3),
-                        blurRadius: 12.r,
-                        offset: Offset(0, 6.h),
-                      )
-                    ]
-                  : [],
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: _isHovered ? 0.35 : 0.2),
+                  blurRadius: _isHovered ? 16.r : 10.r,
+                  offset: Offset(0, _isHovered ? 6.h : 3.h),
+                ),
+              ],
             ),
-            child: Text(
-              'Download CV',
-              style: AppTextStyles.button.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Colors.white,
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.file_download_outlined,
+                  color: Colors.white,
+                  size: 18.r,
+                ),
+                SizedBox(width: 8.w),
+                Text(
+                  'Download CV',
+                  style: AppTextStyles.button.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -212,135 +304,167 @@ class _SayHelloButtonState extends State<_SayHelloButton> {
   }
 }
 
-class _HeroAvatar extends StatelessWidget {
+class _ViewProjectsButton extends StatefulWidget {
+  const _ViewProjectsButton({this.onTap});
+
+  final VoidCallback? onTap;
+
+  @override
+  State<_ViewProjectsButton> createState() => _ViewProjectsButtonState();
+}
+
+class _ViewProjectsButtonState extends State<_ViewProjectsButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _isHovered ? 1.03 : 1.0,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
+            decoration: BoxDecoration(
+              color: _isHovered
+                  ? AppColors.primary.withValues(alpha: 0.08)
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(
+                color: _isHovered
+                    ? AppColors.primary
+                    : AppColors.border,
+                width: 1.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: _isHovered ? 0.06 : 0.02),
+                  blurRadius: _isHovered ? 14.r : 6.r,
+                  offset: Offset(0, _isHovered ? 4.h : 2.h),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'View Projects',
+                  style: AppTextStyles.button.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
+                    color: _isHovered ? AppColors.primary : AppColors.textPrimary,
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                AnimatedSlide(
+                  offset: _isHovered ? const Offset(0.25, 0) : Offset.zero,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOutCubic,
+                  child: Icon(
+                    Icons.arrow_forward_rounded,
+                    color: _isHovered ? AppColors.primary : AppColors.textPrimary,
+                    size: 18.r,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HeroAvatar extends StatefulWidget {
   const _HeroAvatar();
+
+  @override
+  State<_HeroAvatar> createState() => _HeroAvatarState();
+}
+
+class _HeroAvatarState extends State<_HeroAvatar> {
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final isDesktop = width >= 950;
+    final isDesktop = width >= 1024;
+    final cardSize = isDesktop ? 500.r : (width >= 600 ? 380.r : 280.r);
 
-    final cardSize = isDesktop ? 540.r : 300.r;
-
-    return Container(
-      width: cardSize,
-      height: cardSize,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24.r),
-        boxShadow: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 30.r,
-            offset: Offset(0, 15.h),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24.r),
-        child: Transform.scale(
-          scale: 1,
-          alignment: const Alignment(-0.10, 0.40),
-          child: Image.asset(
-            'assets/images/image1.png',
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Center(
-                child: Icon(
-                  Icons.person,
-                  size: 80.r,
-                  color: AppColors.textLight,
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StatsBar extends StatelessWidget {
-  const _StatsBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
-      decoration: BoxDecoration(
-        // ignore: deprecated_member_use
-        color: AppColors.primary.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            Expanded(
-              child: _StatItem(
-                value: '15 Y.',
-                label: 'Experience',
-              ),
-            ),
-            VerticalDivider(
-              color: AppColors.white,
-              thickness: 4,
-            ),
-            Expanded(
-              child: _StatItem(
-                value: '250+',
-                label: 'Project Completed',
-              ),
-            ),
-            VerticalDivider(
-              color: AppColors.white,
-              thickness: 4,
-            ),
-            Expanded(
-              child: _StatItem(
-                value: '58',
-                label: 'Happy Client',
-              ),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+        width: cardSize,
+        height: cardSize,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24.r),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered
+                  ? AppColors.primary.withValues(alpha: 0.12)
+                  : Colors.black.withValues(alpha: 0.04),
+              blurRadius: _isHovered ? 36.r : 24.r,
+              offset: Offset(0, _isHovered ? 16.h : 10.h),
             ),
           ],
         ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24.r),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Subtle background pastel gradient
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      const Color(0xffFAF5FF),
+                      Colors.white,
+                      const Color(0xffF0FDF4).withValues(alpha: 0.4),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Profile Image
+              AnimatedScale(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutCubic,
+                scale: _isHovered ? 1.02 : 1.0,
+                child: Image.asset(
+                  'assets/images/image2.png',
+                  width: cardSize,
+                  height: cardSize,
+                  fit: BoxFit.cover,
+                  alignment: const Alignment(0, -0.2),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                      child: Icon(
+                        Icons.person_rounded,
+                        size: 80.r,
+                        color: AppColors.textLight,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-    );
-  }
-}
-
-class _StatItem extends StatelessWidget {
-  const _StatItem({required this.value, required this.label});
-
-  final String value;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          value,
-          style: AppTextStyles.h3.copyWith(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
-          ),
-        ),
-        SizedBox(height: 6.h),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: AppTextStyles.bodySmall.copyWith(
-            fontSize: 13.sp,
-            color: AppColors.textSecondary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }

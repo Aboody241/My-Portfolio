@@ -48,16 +48,16 @@ class MobileDrawer extends StatelessWidget {
                 onPressed: () => onSectionSelected('Skills'),
               ),
               _DrawerItem(
-                title: 'Featured Projects',
-                onPressed: () => onSectionSelected('Featured Projects'),
+                title: 'What I Do',
+                onPressed: () => onSectionSelected('What I Do'),
               ),
               _DrawerItem(
-                title: 'Services',
-                onPressed: () => onSectionSelected('Services'),
+                title: 'How I Work',
+                onPressed: () => onSectionSelected('How I Work'),
               ),
               _DrawerItem(
-                title: 'Experience / Process',
-                onPressed: () => onSectionSelected('Experience / Process'),
+                title: 'Projects',
+                onPressed: () => onSectionSelected('Projects'),
               ),
               const Spacer(),
               SizedBox(
